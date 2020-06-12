@@ -1,0 +1,25 @@
+body {
+    background: #ededed;
+    color: var(--grey);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
+  }
+  
+  header {
+    background: var(--secondary);
+    padding: 30px 25px;
+    border: solid;
+    margin: 20px;
+    display: inline-flex;
+    justify-content: space-between;
+  }
+
+  main {
+      margin: 20px;
+      border: solid;
+  }
