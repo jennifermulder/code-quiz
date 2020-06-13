@@ -5,22 +5,6 @@ var timerEl = document.querySelector("#timer");
 
 var quizBodyEl = document.querySelector("#quiz-body");
 
-// var questionPrompt = ["Commonly used data types DO Not Include:", "A very useful tool used during development and debugging for printing content to the debugger is:", "Arrays in JavaScript can be used to store:", "String values must be enclosed within _______ when being assigned to variables.", "The condition in an if / else statement is enclosed with:"];
-// var optionOne = ["1. strings", "1. JavaScript", "1. numbers and strings", "1. commas", "1. quotes"];
-// var optionTwo = ["2. booleans", "2. terminal/bash", "2. other arrays", "2. curly brackets", "curly brackets"];
-// var optionThree = ["3. alerts", "3. for loops", "3. booleans", "3. quotes", "3. parenthesis"];
-// var optionFour = ["4. numbers", "4. console,log", "4. all of the above", "4. square brackets"];
-// console.log(optionFour);
-
-
-// var questionObj = {
-//     question : questionPrompt,
-//     option1: optionOne,
-//     option2: optionTwo,
-//     option3: optionThree,
-//     option4: optionFour,
-//     };
-
 
 let questionArr = [{
     id: "1",
@@ -50,18 +34,22 @@ let questionArr = [{
 }]
 
 //start page set up
+var instructionWrapperEl = document.createElement("div");
+instructionWrapperEl.className = "instruction-wrapper";
+quizBodyEl.appendChild(instructionWrapperEl);
+
 var quizDescripEl = document.createElement("h3");
 quizDescripEl.textContent = "Coding Quiz Challenge";
-quizBodyEl.appendChild(quizDescripEl);
+instructionWrapperEl.appendChild(quizDescripEl);
 
 var quizTitleEl = document.createElement("div");
 quizTitleEl.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
-quizBodyEl.appendChild(quizTitleEl);
-console.log(quizTitleEl);
+instructionWrapperEl.appendChild(quizTitleEl);
 
 var startButtonEl = document.createElement("button");
+startButtonEl.className = "btn";
 startButtonEl.textContent = "Start Quiz";
-quizBodyEl.appendChild(startButtonEl);
+instructionWrapperEl.appendChild(startButtonEl);
 
 
 
@@ -73,13 +61,13 @@ var endQuiz = function() {
     quizBodyEl.appendChild(endStatusEl);
 
     var enterInitialsEl = document.createElement("div");
-    enterInitialsEl.innerHTML = "<input type='text' name='initials' class='text-input' placeholder='Enter Initials'/><button id='save-initials' type='submit'>Submit</button>";
+    enterInitialsEl.innerHTML = "<input type='text' name='initials' class='text-input' placeholder='Enter Initials'/><button id='save-initials' type='submit' class='btn'>Submit</button>";
     quizBodyEl.appendChild(enterInitialsEl);
 }
 
 //timer
 var startTimer = function() {
-    var timeLeft = 30;
+    var timeLeft = 60;
 
     var timeInterval = setInterval(function() {
         timerEl.textContent = `Time: ${timeLeft}`;
@@ -110,43 +98,77 @@ var loadQuestion = function() {
     
     quizBodyEl.innerHTML = "";
 
-    var addQuestion = document.createElement("h3");
-    addQuestion.textContent = questionArr[i].title;
-    quizBodyEl.appendChild(addQuestion);
+    var quizWrapperEl = document.createElement("div");
+    quizWrapperEl.className = "quiz-wrapper";
+    quizBodyEl.appendChild(quizWrapperEl);
 
-    var buttonOne = document.createElement("button");
-    buttonOne.textContent = questionArr[i].option[0];
-    quizBodyEl.appendChild(buttonOne);
+    var optionWrapperEl = document.createElement("div");
+    optionWrapperEl.className = "option-wrapper";
+    quizWrapperEl.appendChild(optionWrapperEl);
 
-    var buttonTwo = document.createElement("button");
-    buttonTwo.textContent = questionArr[i].option[1];
-    quizBodyEl.appendChild(buttonTwo);
+    var addQuestionEl = document.createElement("h3");
+    addQuestionEl.textContent = questionArr[i].title;
+    optionWrapperEl.appendChild(addQuestionEl);
 
-    var buttonThree = document.createElement("button");
-    buttonThree.textContent = questionArr[i].option[2];
-    quizBodyEl.appendChild(buttonThree);
+    var questionWrapperEl = document.createElement("div");
+    questionWrapperEl.className = "question-wrapper";
+    optionWrapperEl.appendChild(questionWrapperEl);
 
-    var buttonFour = document.createElement("button");
-    buttonFour.textContent = questionArr[i].option[3];
-    quizBodyEl.appendChild(buttonFour);
+    var buttonOneEl = document.createElement("button");
+    buttonOneEl.setAttribute('type', "radio");
+    buttonOneEl.className = "btn";
+    buttonOneEl.textContent = questionArr[i].option[0];
+    questionWrapperEl.appendChild(buttonOneEl);
+    buttonOneEl.addEventListener("click", answerQuestion);
+    console.log(buttonOneEl);
+
+    var buttonTwoEl = document.createElement("button");
+    buttonTwoEl.setAttribute('type', "radio");
+    buttonTwoEl.className = "btn";
+    buttonTwoEl.textContent = questionArr[i].option[1];
+    questionWrapperEl.appendChild(buttonTwoEl);
+    buttonTwoEl.addEventListener("click", answerQuestion);
+
+    var buttonThreeEl = document.createElement("button");
+    buttonThreeEl.setAttribute('type', "radio");
+    buttonThreeEl.className = "btn";
+    buttonThreeEl.textContent = questionArr[i].option[2];
+    questionWrapperEl.appendChild(buttonThreeEl);
+    buttonThreeEl.addEventListener("click", answerQuestion);
+
+    var buttonFourEl = document.createElement("button");
+    buttonFourEl.setAttribute('type', "radio");
+    buttonFourEl.className = "btn";
+    buttonFourEl.textContent = questionArr[i].option[3];
+    questionWrapperEl.appendChild(buttonFourEl);
+    buttonFourEl.addEventListener("click", answerQuestion);
         
     }
-    let answerQuestion = function() {
-        if (questionArr[i].option[i] === questionArr[i].answer) {
-            var correctEl = document.createElement("h2");
-            correctEl.textContent = "Correct!";
-            quizBodyEl.appendChild(correctEl);
-        } else {
-            var incorrectEl = document.createElement("h2");
-            incorrectEl.textContent = "Incorrect!";
-            quizBodyEl.appendChild(incorrectEl);
-               
-            timerEl = timerEl - 10;
-        }
-        console.log(questionArr[i].option[i]);
-      }
-      answerQuestion();
+   
 }
+
+var userAnswer = [],
+
+
+answerQuestion = function() {
+
+       userAnswer.push(questionArr.option);
+
+    if (userAnswer === questionArr.answer) {
+        var correctEl = document.createElement("h2");
+        correctEl.textContent = "Correct!";
+        quizBodyEl.appendChild(correctEl);
+    } else {
+        var incorrectEl = document.createElement("h2");
+        incorrectEl.textContent = "Incorrect!";
+        quizBodyEl.appendChild(incorrectEl);
+           
+        timerEl = timerEl - 10;
+    }
+    
+  }
+
+  
 
 
 

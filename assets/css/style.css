@@ -1,12 +1,13 @@
 body {
     background: #ededed;
     color: var(--grey);
-    margin: 0;
+    margin: auto;
     padding: 0;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 75%;
     
   }
   
@@ -23,3 +24,37 @@ body {
       margin: 20px;
       border: solid;
   }
+
+
+  .btn {
+      background-color: purple;
+      border-radius: 5px;
+      color: white;   
+  }
+
+  .instruction-wrapper {
+      width: 75%;
+      align-content: center;
+      margin: auto
+  }
+
+  .instruction-wrapper h3 {
+      text-align: center;
+  }
+
+  .instruction-wrapper div {
+      text-align: center;
+  }
+
+  .instruction-wrapper btn {
+      align-items: center;
+  }
+
+  .option-wrapper {
+    width: 60%;
+    margin: auto
+}
+  .question-wrapper {
+      width: 20%;
+    }
+}
