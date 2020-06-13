@@ -5,6 +5,8 @@ var timerEl = document.querySelector("#timer");
 
 var quizBodyEl = document.querySelector("#quiz-body");
 
+var resultEl = document.querySelector("#result");
+
 var currentQuestion = 0
 
 let questionArr = [{
@@ -29,9 +31,9 @@ let questionArr = [{
     answer: ["3. quotes"]
 }, {
     id: "5",
-    title: "Commonly used data types DO Not Include:",
-    option: ["1. strings", "2. booleans", "3. alerts", "4. numbers"],
-    answer: ["3. alerts"]
+    title: "The condition in an if / else statement is enclosed with:",
+    option: ["1. quotes", "2. curly brackets", "3. parenthesis", "4. square brackets"],
+    answer: ["3. parenthesis"]
 }]
 
 //start page set up
@@ -75,11 +77,17 @@ var startTimer = function() {
         timerEl.textContent = `Time: ${timeLeft}`;
         timeLeft--;
 
-        if (timeLeft === 0) {
+        if (correctEl.textContent = "Incorrect!") {
+            timeLeft = timeLeft - 10;
+        }
+        
+        if (timeLeft === 0 || currentQuestion === questionArr.length) {
             timerEl.textContent = '';
             clearInterval(timeInterval);
             endQuiz();
         }
+
+        
     }, 1000);
 }
 
@@ -161,21 +169,21 @@ answerQuestion = function() {
     
            
     if (dataAnswer === userValue) {
+        resultEl.innerHTML = "";
         console.log("correct")
         var correctEl = document.createElement("h2");
         correctEl.textContent = "Correct!";
-        quizBodyEl.appendChild(correctEl);
-    //     currentQuestion++;
-    //  loadQuestion();
+        resultEl.appendChild(correctEl);
+   
 
      } else { 
+        resultEl.innerHTML = "";
         console.log("incorrect")
-        var incorrectEl = document.createElement("h2");
-        incorrectEl.textContent = "Incorrect!";
-        quizBodyEl.appendChild(incorrectEl);
-        // currentQuestion++;
-        // loadQuestion();
-         //timerEl = timerEl - 10;
+        var correctEl = document.createElement("h2");
+        correctEl.textContent = "Incorrect!";
+        resultEl.appendChild(correctEl);
+        
+        
      }
     currentQuestion++;
      if (currentQuestion === questionArr.length) {
@@ -199,6 +207,9 @@ answerQuestion = function() {
 //var storeScore = function() {
     //localStorage.setItem("initials", JSON.stringify(initials));
     //localStorage.setItem("score" , JSON.stringify(timerEL.value));
+
+    //load highscore page
+    //window.location.href
 //}
 
 
@@ -214,6 +225,5 @@ answerQuestion = function() {
 startButtonEl.addEventListener("click", startQuiz);
 //delay to loading question. delay to event listener response
 
-//quizBodyEl.addEventListener("click", loadQuestion);
 
 //submitButtonEl.addEventListener("click", storeScore);
