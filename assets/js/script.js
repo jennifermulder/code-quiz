@@ -12,7 +12,7 @@ var currentQuestion = 0
 let questionArr = [{
     id: "1",
     title: "Commonly used data types DO Not Include:",
-    option: ["1. strings", "2. booleans", "3. alerts", "4. numbers"],
+    option: ["3. alerts", "2. booleans", "3. alerts", "4. numbers"],
     answer: ["3. alerts"]
 }, {
     id: "2",
@@ -77,10 +77,10 @@ var startTimer = function() {
         timerEl.textContent = `Time: ${timeLeft}`;
         timeLeft--;
 
-        if (correctEl.textContent = "Incorrect!") {
-            timeLeft = timeLeft - 10;
-        }
-        
+        // if (correctEl.textContent = "Incorrect!") {
+        //     timeLeft = timeLeft - 10;
+        // }
+
         if (timeLeft === 0 || currentQuestion === questionArr.length) {
             timerEl.textContent = '';
             clearInterval(timeInterval);
