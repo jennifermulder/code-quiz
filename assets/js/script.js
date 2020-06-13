@@ -112,10 +112,11 @@ var loadQuestion = function() {
 
     var questionWrapperEl = document.createElement("div");
     questionWrapperEl.className = "question-wrapper";
+    questionWrapperEl.setAttribute('data-answer', `${questionArr[i].answer}`);
     optionWrapperEl.appendChild(questionWrapperEl);
 
+    //buttons
     var buttonOneEl = document.createElement("button");
-    buttonOneEl.setAttribute('type', "radio");
     buttonOneEl.className = "btn";
     buttonOneEl.textContent = questionArr[i].option[0];
     questionWrapperEl.appendChild(buttonOneEl);
@@ -123,21 +124,18 @@ var loadQuestion = function() {
     console.log(buttonOneEl);
 
     var buttonTwoEl = document.createElement("button");
-    buttonTwoEl.setAttribute('type', "radio");
     buttonTwoEl.className = "btn";
     buttonTwoEl.textContent = questionArr[i].option[1];
     questionWrapperEl.appendChild(buttonTwoEl);
     buttonTwoEl.addEventListener("click", answerQuestion);
 
     var buttonThreeEl = document.createElement("button");
-    buttonThreeEl.setAttribute('type', "radio");
     buttonThreeEl.className = "btn";
     buttonThreeEl.textContent = questionArr[i].option[2];
     questionWrapperEl.appendChild(buttonThreeEl);
     buttonThreeEl.addEventListener("click", answerQuestion);
 
     var buttonFourEl = document.createElement("button");
-    buttonFourEl.setAttribute('type', "radio");
     buttonFourEl.className = "btn";
     buttonFourEl.textContent = questionArr[i].option[3];
     questionWrapperEl.appendChild(buttonFourEl);
@@ -147,14 +145,19 @@ var loadQuestion = function() {
    
 }
 
-var userAnswer = [],
+
 
 
 answerQuestion = function() {
 
-       userAnswer.push(questionArr.option);
+    var dataAnswer = querySelector(".question-wrapper");
+    console.log(dataAnswer);
 
-    if (userAnswer === questionArr.answer) {
+    //var = quest
+    
+
+       
+    if (questionEl.getAttribute('data-answer', `${questionArr[i].answer}`) === questionArr.answer) {
         var correctEl = document.createElement("h2");
         correctEl.textContent = "Correct!";
         quizBodyEl.appendChild(correctEl);
