@@ -5,6 +5,7 @@ var timerEl = document.querySelector("#timer");
 
 var quizBodyEl = document.querySelector("#quiz-body");
 
+var currentQuestion = 0
 
 let questionArr = [{
     id: "1",
@@ -63,6 +64,7 @@ var endQuiz = function() {
     var enterInitialsEl = document.createElement("div");
     enterInitialsEl.innerHTML = "<input type='text' name='initials' class='text-input' placeholder='Enter Initials'/><button id='save-initials' type='submit' class='btn'>Submit</button>";
     quizBodyEl.appendChild(enterInitialsEl);
+    console.log("quiz ended");
 }
 
 //timer
@@ -93,8 +95,8 @@ var startQuiz = function() {
 }
 
 var loadQuestion = function() {
-
-    for (var i = 0; i < questionArr.length; i++){
+    
+    
     
     quizBodyEl.innerHTML = "";
 
@@ -107,42 +109,42 @@ var loadQuestion = function() {
     quizWrapperEl.appendChild(optionWrapperEl);
 
     var addQuestionEl = document.createElement("h3");
-    addQuestionEl.textContent = questionArr[i].title;
+    addQuestionEl.textContent = questionArr[currentQuestion].title;
     optionWrapperEl.appendChild(addQuestionEl);
 
     var questionWrapperEl = document.createElement("div");
     questionWrapperEl.className = "question-wrapper";
-    questionWrapperEl.setAttribute('data-answer', `${questionArr[i].answer}`);
+    questionWrapperEl.setAttribute('data-answer', `${questionArr[currentQuestion].answer}`);
     optionWrapperEl.appendChild(questionWrapperEl);
 
     //buttons
     var buttonOneEl = document.createElement("button");
     buttonOneEl.className = "btn";
-    buttonOneEl.textContent = questionArr[i].option[0];
+    buttonOneEl.textContent = questionArr[currentQuestion].option[0];
     questionWrapperEl.appendChild(buttonOneEl);
-    buttonOneEl.addEventListener("click", answerQuestion);
-    console.log(buttonOneEl);
-
+    
     var buttonTwoEl = document.createElement("button");
     buttonTwoEl.className = "btn";
-    buttonTwoEl.textContent = questionArr[i].option[1];
+    buttonTwoEl.textContent = questionArr[currentQuestion].option[1];
     questionWrapperEl.appendChild(buttonTwoEl);
-    buttonTwoEl.addEventListener("click", answerQuestion);
-
+    
     var buttonThreeEl = document.createElement("button");
     buttonThreeEl.className = "btn";
-    buttonThreeEl.textContent = questionArr[i].option[2];
+    buttonThreeEl.textContent = questionArr[currentQuestion].option[2];
     questionWrapperEl.appendChild(buttonThreeEl);
-    buttonThreeEl.addEventListener("click", answerQuestion);
-
+    
     var buttonFourEl = document.createElement("button");
     buttonFourEl.className = "btn";
-    buttonFourEl.textContent = questionArr[i].option[3];
+    buttonFourEl.textContent = questionArr[currentQuestion].option[3];
     questionWrapperEl.appendChild(buttonFourEl);
-    buttonFourEl.addEventListener("click", answerQuestion);
-        
-    }
-   
+    
+    
+
+
+ buttonOneEl.addEventListener("click", answerQuestion);
+buttonTwoEl.addEventListener("click", answerQuestion);
+buttonThreeEl.addEventListener("click", answerQuestion);
+buttonFourEl.addEventListener("click", answerQuestion);
 }
 
 
@@ -150,25 +152,39 @@ var loadQuestion = function() {
 
 answerQuestion = function() {
 
-    var dataAnswer = querySelector(".question-wrapper");
-    console.log(dataAnswer);
-
-    //var = quest
+    var dataAnswer = document.querySelector(".question-wrapper");
+    console.log(dataAnswer.dataset.answer);
     
+    var userValue = document.querySelector(".btn");
+    console.log(userValue.textContent);
 
-       
-    if (questionEl.getAttribute('data-answer', `${questionArr[i].answer}`) === questionArr.answer) {
+    
+           
+    if (dataAnswer === userValue) {
+        console.log("correct")
         var correctEl = document.createElement("h2");
         correctEl.textContent = "Correct!";
         quizBodyEl.appendChild(correctEl);
-    } else {
+    //     currentQuestion++;
+    //  loadQuestion();
+
+     } else { 
+        console.log("incorrect")
         var incorrectEl = document.createElement("h2");
         incorrectEl.textContent = "Incorrect!";
         quizBodyEl.appendChild(incorrectEl);
-           
-        timerEl = timerEl - 10;
+        // currentQuestion++;
+        // loadQuestion();
+         //timerEl = timerEl - 10;
+     }
+    currentQuestion++;
+     if (currentQuestion === questionArr.length) {
+         endQuiz();
+         
+        
+    } else {
+        loadQuestion();
     }
-    
   }
 
   
@@ -198,6 +214,6 @@ answerQuestion = function() {
 startButtonEl.addEventListener("click", startQuiz);
 //delay to loading question. delay to event listener response
 
-quizBodyEl.addEventListener("click", loadQuestion);
+//quizBodyEl.addEventListener("click", loadQuestion);
 
 //submitButtonEl.addEventListener("click", storeScore);
