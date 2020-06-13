@@ -1,18 +1,19 @@
-var quizIdCounter = 0;
 var highScoresEl = document.querySelector("#high-scores");
-
 var timerEl = document.querySelector("#timer");
-
 var quizBodyEl = document.querySelector("#quiz-body");
-
 var resultEl = document.querySelector("#result");
 
-var currentQuestion = 0
+var timeInterval;
+var enterInitialsEl;
+var timeLeft = 60;
+var currentQuestion = 0;
 
+
+// All questions
 let questionArr = [{
     id: "1",
     title: "Commonly used data types DO Not Include:",
-    option: ["3. alerts", "2. booleans", "3. alerts", "4. numbers"],
+    option: ["1. strings", "2. booleans", "3. alerts", "4. numbers"],
     answer: ["3. alerts"]
 }, {
     id: "2",
@@ -55,44 +56,45 @@ startButtonEl.textContent = "Start Quiz";
 instructionWrapperEl.appendChild(startButtonEl);
 
 
-
+// end quiz and setup score input
 var endQuiz = function() {
     quizBodyEl.innerHTML = "";
 
+    timerEl.textContent = "";
+
     var endStatusEl = document.createElement("div");
-    endStatusEl.innerHTML = "<h3>" + "All done!" + "</h3><span>" + "Your final score is" + timerEl + "</span>";
+    endStatusEl.innerHTML = `<h3> All done! </h3><span> Your final score is ${timeLeft} </span>`;
     quizBodyEl.appendChild(endStatusEl);
 
-    var enterInitialsEl = document.createElement("div");
-    enterInitialsEl.innerHTML = "<input type='text' name='initials' class='text-input' placeholder='Enter Initials'/><button id='save-initials' type='submit' class='btn'>Submit</button>";
+    enterInitialsEl = document.createElement("div");
+    enterInitialsEl.innerHTML = `<input type='text' name='initials' class='text-input' placeholder='Enter Initials'/>`;
+    console.log(enterInitialsEl);
     quizBodyEl.appendChild(enterInitialsEl);
-    console.log("quiz ended");
+
+    var submitButtonEl = document.createElement("button");
+    submitButtonEl.className = "btn";
+    submitButtonEl.textContent = "Submit";
+    submitButtonEl.addEventListener("click", storeScore);
+    enterInitialsEl.appendChild(submitButtonEl);
+    
+    clearInterval(timeInterval);
 }
 
 //timer
 var startTimer = function() {
-    var timeLeft = 60;
-
-    var timeInterval = setInterval(function() {
+    
+    timeInterval = setInterval(function() {
         timerEl.textContent = `Time: ${timeLeft}`;
-        timeLeft--;
+        timeLeft--;      
 
-        // if (correctEl.textContent = "Incorrect!") {
-        //     timeLeft = timeLeft - 10;
-        // }
-
-        if (timeLeft === 0 || currentQuestion === questionArr.length) {
-            timerEl.textContent = '';
-            clearInterval(timeInterval);
+        if (timeLeft <= 0) {
             endQuiz();
-        }
-
-        
+        }      
     }, 1000);
 }
 
 
-//when I click the start quiz button, load the first question
+//when I click the start quiz button, start the timer and load the first question
 var startQuiz = function() {
 
     startTimer();
@@ -103,9 +105,7 @@ var startQuiz = function() {
 }
 
 var loadQuestion = function() {
-    
-    
-    
+     
     quizBodyEl.innerHTML = "";
 
     var quizWrapperEl = document.createElement("div");
@@ -120,110 +120,88 @@ var loadQuestion = function() {
     addQuestionEl.textContent = questionArr[currentQuestion].title;
     optionWrapperEl.appendChild(addQuestionEl);
 
+    //assigns the correct answer as an attribute to be used in conditional below
     var questionWrapperEl = document.createElement("div");
     questionWrapperEl.className = "question-wrapper";
     questionWrapperEl.setAttribute('data-answer', `${questionArr[currentQuestion].answer}`);
+    
     optionWrapperEl.appendChild(questionWrapperEl);
 
     //buttons
     var buttonOneEl = document.createElement("button");
     buttonOneEl.className = "btn";
     buttonOneEl.textContent = questionArr[currentQuestion].option[0];
+    buttonOneEl.setAttribute('value', `${questionArr[currentQuestion].option[0]}`);
     questionWrapperEl.appendChild(buttonOneEl);
     
     var buttonTwoEl = document.createElement("button");
     buttonTwoEl.className = "btn";
     buttonTwoEl.textContent = questionArr[currentQuestion].option[1];
+    buttonTwoEl.setAttribute('value', `${questionArr[currentQuestion].option[1]}`);
     questionWrapperEl.appendChild(buttonTwoEl);
     
     var buttonThreeEl = document.createElement("button");
     buttonThreeEl.className = "btn";
     buttonThreeEl.textContent = questionArr[currentQuestion].option[2];
+    buttonThreeEl.setAttribute('value', `${questionArr[currentQuestion].option[2]}`);
     questionWrapperEl.appendChild(buttonThreeEl);
     
     var buttonFourEl = document.createElement("button");
     buttonFourEl.className = "btn";
     buttonFourEl.textContent = questionArr[currentQuestion].option[3];
+    buttonFourEl.setAttribute('value', `${questionArr[currentQuestion].option[3]}`);
     questionWrapperEl.appendChild(buttonFourEl);
     
-    
-
-
- buttonOneEl.addEventListener("click", answerQuestion);
-buttonTwoEl.addEventListener("click", answerQuestion);
-buttonThreeEl.addEventListener("click", answerQuestion);
-buttonFourEl.addEventListener("click", answerQuestion);
+    //event listeners for buttons
+    buttonOneEl.addEventListener("click", answerQuestion);
+    buttonTwoEl.addEventListener("click", answerQuestion);
+    buttonThreeEl.addEventListener("click", answerQuestion);
+    buttonFourEl.addEventListener("click", answerQuestion);
 }
 
-
-
-
-answerQuestion = function() {
-
-    var dataAnswer = document.querySelector(".question-wrapper");
-    console.log(dataAnswer.dataset.answer);
+// compares the user answer to the correct answer
+answerQuestion = function(event) {
     
-    var userValue = document.querySelector(".btn");
-    console.log(userValue.textContent);
-
-    
-           
-    if (dataAnswer === userValue) {
+    var dataAnswer = document.querySelector(".question-wrapper").dataset.answer;
+    var userValue = event.target.value;
+          
+    if (dataAnswer == userValue) {
         resultEl.innerHTML = "";
         console.log("correct")
         var correctEl = document.createElement("h2");
         correctEl.textContent = "Correct!";
         resultEl.appendChild(correctEl);
-   
-
-     } else { 
+    } else { 
         resultEl.innerHTML = "";
         console.log("incorrect")
         var correctEl = document.createElement("h2");
         correctEl.textContent = "Incorrect!";
         resultEl.appendChild(correctEl);
         
-        
+        if (correctEl.textContent = "Incorrect!") {
+            timeLeft = timeLeft - 10;
+            if (timeLeft < 0) {
+                timeLeft = 0;
+            }
+        }
      }
+
     currentQuestion++;
      if (currentQuestion === questionArr.length) {
-         endQuiz();
-         
-        
+         endQuiz();  
     } else {
         loadQuestion();
     }
   }
+   
+//store high score
+var storeScore = function() {
+    localStorage.setItem("initials", enterInitialsEl.value);
+    localStorage.setItem("score" , JSON.stringify(timeLeft));
+}
 
-  
-
-
-
-
-
-    //how does it switch to the next question?
-//}
-
-//var storeScore = function() {
-    //localStorage.setItem("initials", JSON.stringify(initials));
-    //localStorage.setItem("score" , JSON.stringify(timerEL.value));
-
-    //load highscore page
-    //window.location.href
-//}
-
-
-           
-
-
-
-
-
-
-
-
+//start quiz when button is clicked
 startButtonEl.addEventListener("click", startQuiz);
-//delay to loading question. delay to event listener response
 
 
-//submitButtonEl.addEventListener("click", storeScore);
+
