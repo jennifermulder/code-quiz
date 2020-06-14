@@ -18,7 +18,7 @@ let questionArr = [{
 }, {
     id: "2",
     title: "A very useful tool used during development and debugging for printing content to the debugger is:",
-    option: ["1. JavaScript", "2. terminal/bash", "3. for loops", "4. console,log"],
+    option: ["1. JavaScript", "2. terminal/bash", "3. for loops", "4. console.log"],
     answer: ["4. console,log"]
 }, {
     id: "3",
