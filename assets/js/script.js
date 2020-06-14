@@ -67,7 +67,7 @@ var endQuiz = function() {
     quizBodyEl.appendChild(endStatusEl);
 
     enterInitialsEl = document.createElement("div");
-    enterInitialsEl.innerHTML = `<input type='text' name='initials' class='text-input' placeholder='Enter Initials'/>`;
+    enterInitialsEl.innerHTML = `<input type='text' name='initials' id='initials' class='text-input' placeholder='Enter Initials'/>`;
     console.log(enterInitialsEl);
     quizBodyEl.appendChild(enterInitialsEl);
 
@@ -89,7 +89,7 @@ var startTimer = function() {
 
         if (timeLeft <= 0) {
             endQuiz();
-        }      
+        };      
     }, 1000);
 }
 
@@ -193,12 +193,23 @@ answerQuestion = function(event) {
         loadQuestion();
     }
   }
+
+  
    
 //store high score
 var storeScore = function() {
-    localStorage.setItem("initials", enterInitialsEl.value);
+    var initials = document.getElementById("initials").value;
+    console.log(initials);
+
+    localStorage.setItem("initials", initials);
     localStorage.setItem("score" , JSON.stringify(timeLeft));
 }
+
+// var loadScore = function() {
+//     localStorage.getItem("initials", JSON.parse(enterInitialsEl.value));
+//     localStorage.getItem("score" , JSON.stringify(timeLeft));
+// }
+
 
 //start quiz when button is clicked
 startButtonEl.addEventListener("click", startQuiz);

@@ -78,4 +78,22 @@ body {
         font-size: 15px;
         color: grey;
     }
+
+    /* additional highscorehtml style*/
+
+    .buttons {
+        display: inline-block;
+    }
     
+    #scores {
+        background-color: lightpink;
+    }
+
+    /*//get from runbuddy
+    #go-back {
+        href="./index.html" 
+    }
+
+    #clear {
+        
+    }
