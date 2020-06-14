@@ -82,18 +82,15 @@ body {
     /* additional highscorehtml style*/
 
     .buttons {
-        display: inline-block;
+        display: flex;
     }
     
-    #scores {
+    .highScores div {
         background-color: lightpink;
     }
 
-    /*//get from runbuddy
-    #go-back {
-        href="./index.html" 
-    }
-
-    #clear {
-        
-    }
+    .highScores {
+        display: flex;
+        margin: 10px;
+   }
+     

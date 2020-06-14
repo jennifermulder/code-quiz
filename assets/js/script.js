@@ -205,10 +205,6 @@ var storeScore = function() {
     localStorage.setItem("score" , JSON.stringify(timeLeft));
 }
 
-// var loadScore = function() {
-//     localStorage.getItem("initials", JSON.parse(enterInitialsEl.value));
-//     localStorage.getItem("score" , JSON.stringify(timeLeft));
-// }
 
 
 //start quiz when button is clicked

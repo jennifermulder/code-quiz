@@ -1,13 +1,22 @@
-var scoreHolderEl = document.querySelector("#scores");
-console.log(scoreHolderEl);
+var scoreHolderEl = document.querySelector("#initials");
+var scoreHolderE2 = document.querySelector("#scores");
+var goBackEl = document.querySelector("#go-back");
+var clearStorageEl = document.querySelector("#clear");
 
-var loadScoreEl = function() {
-     localStorage.getItem("initials", JSON.parse(initials));
-     localStorage.getItem("score", JSON.parse(timeLeft));
+//load high scores to the view high scores page
+var loadHighScores = function() {
+
+    scoreHolderEl.innerHTML = `<h3>1.${localStorage.getItem("initials")}</h3>`;
+    scoreHolderE2.innerHTML = `<h3>-${localStorage.getItem("score")}</h3>`;
 }
 
-var loadScoreValueEl = loadScoreEl.value;
+goBackEl.innerHTML = `<button class='btn' onclick="window.location.href='./index.html';">Go Back</button>`;
+clearStorageEl.innerHTML = `<button class='btn' onclick="deleteItems()">Clear Items</button>`;
 
-scoreHolderEl.appendChild(loadScoreValueEl);
+function deleteItems() {
+    localStorage.clear();
+  }
+  
 
+  loadHighScores();
 
