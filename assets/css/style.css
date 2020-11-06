@@ -4,98 +4,95 @@ body {
     display: flex;
     flex-direction: column;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    width: 50%;
-    
-  }
+    width: 50%; 
+}
   
-  header {
+header {
     background: var(--secondary);
     padding: 30px 25px;
     border: solid;
     margin: 20px;
     display: inline-flex;
     justify-content: space-between;
-  }
+}
 
-  header a {
-      text-decoration: none;
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
-      font-weight: bold;
-      color: black;
-  }
+header a {
+    text-decoration: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    color: black;
+}
 
-  header a:hover {
-      color: hotpink;
-  }
+header a:hover {
+    color: hotpink;
+}
 
-  header h2 {
-        font-size: 15px;
-  }
+header h2 {
+    font-size: 15px;
+}
 
-  main {
-      margin: 20px;
-      border: solid;
-  }
+main {
+    margin: 20px;
+    border: solid;
+}
 
+.btn {
+    background-color: purple;
+    border-radius: 5px;
+    color: white;   
+}
 
-  .btn {
-      background-color: purple;
-      border-radius: 5px;
-      color: white;   
-      
+.btn:hover {
+    background-color: hotpink;
+}
 
-  }
+.instruction-wrapper {
+    width: 75%;
+    align-content: center;
+    margin: auto
+}
 
-  .btn:hover {
-      background-color: hotpink;
-  }
+.instruction-wrapper h3 {
+    text-align: center;
+}
 
-  .instruction-wrapper {
-      width: 75%;
-      align-content: center;
-      margin: auto
-  }
+.instruction-wrapper div {
+    text-align: center;
+}
 
-  .instruction-wrapper h3 {
-      text-align: center;
-  }
+.instruction-wrapper btn {
+    align-items: center;
+}
 
-  .instruction-wrapper div {
-      text-align: center;
-  }
-
-  .instruction-wrapper btn {
-      align-items: center;
-  }
-
-  .option-wrapper {
+.option-wrapper {
     width: 60%;
     margin: auto
 }
-  .question-wrapper {
-      width: 30%;
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-    }
 
-    section h2 {
-        font-size: 15px;
-        color: grey;
-    }
+.question-wrapper {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
 
-    /* additional highscorehtml style*/
+section h2 {
+    font-size: 15px;
+    color: grey;
+}
 
-    .buttons {
-        display: flex;
-    }
-    
-    .highScores div {
-        background-color: lightpink;
-    }
+/* additional highscorehtml style*/
 
-    .highScores {
-        display: flex;
-        margin: 10px;
-   }
+.buttons {
+    display: flex;
+}
+
+.highScores div {
+    background-color: lightpink;
+}
+
+.highScores {
+    display: flex;
+    margin: 10px;
+}
      

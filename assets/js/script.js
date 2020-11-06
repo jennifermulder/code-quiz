@@ -8,7 +8,6 @@ var enterInitialsEl;
 var timeLeft = 60;
 var currentQuestion = 0;
 
-
 // All questions
 let questionArr = [{
     id: "1",
@@ -57,9 +56,8 @@ instructionWrapperEl.appendChild(startButtonEl);
 
 
 // end quiz and setup score input
-var endQuiz = function() {
+var endQuiz = function () {
     quizBodyEl.innerHTML = "";
-
     timerEl.textContent = "";
 
     var endStatusEl = document.createElement("div");
@@ -76,36 +74,32 @@ var endQuiz = function() {
     submitButtonEl.textContent = "Submit";
     submitButtonEl.addEventListener("click", storeScore);
     enterInitialsEl.appendChild(submitButtonEl);
-    
+
     clearInterval(timeInterval);
 }
 
+
 //timer
-var startTimer = function() {
-    
-    timeInterval = setInterval(function() {
+var startTimer = function () {
+
+    timeInterval = setInterval(function () {
         timerEl.textContent = `Time: ${timeLeft}`;
-        timeLeft--;      
+        timeLeft--;
 
         if (timeLeft <= 0) {
             endQuiz();
-        };      
+        };
     }, 1000);
 }
 
 
-//when I click the start quiz button, start the timer and load the first question
-var startQuiz = function() {
-
+//On clicking the start quiz button, start the timer and load the first question
+var startQuiz = function () {
     startTimer();
-
     loadQuestion();
-
-    
 }
 
-var loadQuestion = function() {
-     
+var loadQuestion = function () {
     quizBodyEl.innerHTML = "";
 
     var quizWrapperEl = document.createElement("div");
@@ -124,7 +118,7 @@ var loadQuestion = function() {
     var questionWrapperEl = document.createElement("div");
     questionWrapperEl.className = "question-wrapper";
     questionWrapperEl.setAttribute('data-answer', `${questionArr[currentQuestion].answer}`);
-    
+
     optionWrapperEl.appendChild(questionWrapperEl);
 
     //buttons
@@ -133,25 +127,25 @@ var loadQuestion = function() {
     buttonOneEl.textContent = questionArr[currentQuestion].option[0];
     buttonOneEl.setAttribute('value', `${questionArr[currentQuestion].option[0]}`);
     questionWrapperEl.appendChild(buttonOneEl);
-    
+
     var buttonTwoEl = document.createElement("button");
     buttonTwoEl.className = "btn";
     buttonTwoEl.textContent = questionArr[currentQuestion].option[1];
     buttonTwoEl.setAttribute('value', `${questionArr[currentQuestion].option[1]}`);
     questionWrapperEl.appendChild(buttonTwoEl);
-    
+
     var buttonThreeEl = document.createElement("button");
     buttonThreeEl.className = "btn";
     buttonThreeEl.textContent = questionArr[currentQuestion].option[2];
     buttonThreeEl.setAttribute('value', `${questionArr[currentQuestion].option[2]}`);
     questionWrapperEl.appendChild(buttonThreeEl);
-    
+
     var buttonFourEl = document.createElement("button");
     buttonFourEl.className = "btn";
     buttonFourEl.textContent = questionArr[currentQuestion].option[3];
     buttonFourEl.setAttribute('value', `${questionArr[currentQuestion].option[3]}`);
     questionWrapperEl.appendChild(buttonFourEl);
-    
+
     //event listeners for buttons
     buttonOneEl.addEventListener("click", answerQuestion);
     buttonTwoEl.addEventListener("click", answerQuestion);
@@ -160,52 +154,48 @@ var loadQuestion = function() {
 }
 
 // compares the user answer to the correct answer
-answerQuestion = function(event) {
-    
+answerQuestion = function (event) {
+
     var dataAnswer = document.querySelector(".question-wrapper").dataset.answer;
     var userValue = event.target.value;
-          
+
     if (dataAnswer == userValue) {
         resultEl.innerHTML = "";
         console.log("correct")
         var correctEl = document.createElement("h2");
         correctEl.textContent = "Correct!";
         resultEl.appendChild(correctEl);
-    } else { 
+    } else {
         resultEl.innerHTML = "";
         console.log("incorrect")
         var correctEl = document.createElement("h2");
         correctEl.textContent = "Incorrect!";
         resultEl.appendChild(correctEl);
-        
+
         if (correctEl.textContent = "Incorrect!") {
             timeLeft = timeLeft - 10;
             if (timeLeft < 0) {
                 timeLeft = 0;
             }
         }
-     }
+    }
 
     currentQuestion++;
-     if (currentQuestion === questionArr.length) {
-         endQuiz();  
+    if (currentQuestion === questionArr.length) {
+        endQuiz();
     } else {
         loadQuestion();
     }
-  }
+}
 
-  
-   
 //store high score
-var storeScore = function() {
+var storeScore = function () {
     var initials = document.getElementById("initials").value;
     console.log(initials);
 
     localStorage.setItem("initials", initials);
-    localStorage.setItem("score" , JSON.stringify(timeLeft));
+    localStorage.setItem("score", JSON.stringify(timeLeft));
 }
-
-
 
 //start quiz when button is clicked
 startButtonEl.addEventListener("click", startQuiz);
